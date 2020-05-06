@@ -2,13 +2,24 @@ public class EmpWagecomputations {
 
         private static final int IS_FULL_TIME = 1;
 	private static final int IS_PART_TIME = 2;
+       
+        private final String company;
+	private final int empRatePerHour;
+	private final int numOfWorkingDays;
+       	private final int maxHoursPerMonth;
 
-       public static void calcEmpWageForCompany(String company,int empRate,int numOfDays,int maxHrs){
-		int empWorkingHrs = 0 ;
-		int totalEmpWage = 0 ;
-		int empWorkingDays = 0 ;
+        private EmpWagecomputations(String company,int empRatePerHour,int numOfWorkingDays,int maxHoursPerMonth){
+		this.company = company;
+		this.empRatePerHour = empRatePerHour ;
+		this.numOfWorkingDays = numOfWorkingDays;
+		this.maxHoursPerMonth = maxHoursPerMonth;
+	}
 
-		while( empWorkingDays < numOfDays && empWorkingHrs <= maxHrs ){
+	public void calcEmpWageForCompany(){
+
+		int empWorkingHrs = 0, totalEmpWage = 0, empWorkingDays = 0 ;
+
+		while( empWorkingDays < numOfWorkingDays && empWorkingHrs <= maxHoursPerMonth ){
 
 			empWorkingDays++;
 			int empHrs = 0;
@@ -26,14 +37,18 @@ public class EmpWagecomputations {
 			}
 			empWorkingHrs += empHrs ;
 		}
-		totalEmpWage = empWorkingHrs * empRate;
+		totalEmpWage = empWorkingHrs * empRatePerHour;
 		System.out.println(company+" Employee Wage is :"+ totalEmpWage);
 	}
 
 	public static void main(String []args){
 		System.out.println("Welcome to Employee Wage Computation");
-		calcEmpWageForCompany("DMart",20,2,10);
-		calcEmpWageForCompany("Reliance",10,4,20);
+
+		EmpWagecomputations e1 = new EmpWagecomputations("DMart",30,3,10);
+		e1.calcEmpWageForCompany();
+
+		EmpWagecomputations e2 = new EmpWagecomputations("Reliance",20,4,10);
+		e2.calcEmpWageForCompany();
 	}
 
 }
